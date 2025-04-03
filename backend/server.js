@@ -1,4 +1,6 @@
 import express from 'express';
+import cron from 'node-cron';   
+import axios from 'axios';
 
 import authRoutes from "./routes/auth.route.js";
 import movieRoutes from "./routes/movie.route.js";
@@ -12,6 +14,7 @@ import path from "path";
 const app = express();
 const PORT = ENV_VARS.PORT
 const __dirname = path.resolve();
+const serverURL = "https://movie-tv-website.onrender.com"
 
 app.use(express.json());// the function that allows us to use req.body in auth.controller.js for email password and username in signup
 app.use(cookieparser());
@@ -28,9 +31,19 @@ if(ENV_VARS.NODE_ENV === "production"){
     });
 }
 
+cron.schedule("*/5 * * * *", async () => {
+    try {
+      await axios.get(serverUrl);
+      console.log("Server pinged successfully to prevent cold start");
+    } catch (error) {
+      console.error("Error pinging server:", error.message);
+    }
+  });
+
 app.listen(PORT ,()=>{
     console.log('sever started');
     connectDB();
 
 
 })
+
