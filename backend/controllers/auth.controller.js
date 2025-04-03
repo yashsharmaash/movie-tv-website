@@ -46,9 +46,9 @@ export async function signup(req, res) {
 
         });
 
-        
+        await newUser.save();
          generatetokensandsetcookies(newUser._id,res);
-         await newUser.save();
+         
          res.status(201).json({ 
             success: true,
             user:{
