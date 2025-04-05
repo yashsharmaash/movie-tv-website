@@ -15,6 +15,8 @@ const app = express();
 const PORT = ENV_VARS.PORT
 const __dirname = path.resolve();
 
+const RENDER_URL = "https://movie-tv-website.onrender.com";
+
 
 app.use(express.json());// the function that allows us to use req.body in auth.controller.js for email password and username in signup
 app.use(cookieparser());
@@ -30,7 +32,14 @@ if(ENV_VARS.NODE_ENV === "production"){
         res.sendFile(path.resolve(__dirname,"/frontend/dist/index.html"));
     });
 }
-
+cron.schedule('*/5 * * * *', async () => {
+  try {
+    console.log(`[CRON] Pinging ${RENDER_URL} at ${new Date().toISOString()}`);
+    await axios.get(RENDER_URL);
+  } catch (error) {
+    console.error('[CRON] Error pinging the server:', error.message);
+  }
+});
 
 app.listen(PORT ,()=>{
     console.log('sever started');
