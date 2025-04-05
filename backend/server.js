@@ -30,10 +30,9 @@ if(ENV_VARS.NODE_ENV === "production"){
         res.sendFile(path.resolve(__dirname,"/frontend/dist/index.html"));
     });
 }
-
 cron.schedule("*/5 * * * *", async () => {
     try {
-      await axios.get(serverUrl);
+      await axios.get(serverURL);
       console.log("Server pinged successfully to prevent cold start");
     } catch (error) {
       console.error("Error pinging server:", error.message);
