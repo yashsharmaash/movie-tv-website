@@ -6,7 +6,7 @@ import axios from 'axios';
 import { Original_Img_Base_URL } from '../utils/constants';
 import { Link } from 'react-router-dom';
 import  toast  from 'react-hot-toast';
-import { set } from 'mongoose';
+
 
 const Searchpage = () => {
   const [activeTab, setActiveTab] = useState("movie");
