@@ -89,7 +89,7 @@ const Searchpage = () => {
                     <h2 className='mt-2 text-xl font-bold'>{result.name}</h2>
                   </div>
                 ) : (
-                  <Link to={`/watch/`+ result.id} onClick={()=>{setContentType(activeTab)}} >
+                  <Link to={"/watch/"+ result.id} onClick={()=>{setContentType(activeTab)}} >
                     <img 
                       src={Original_Img_Base_URL + result.poster_path}
                       alt={result.title || result.name}
